@@ -3,17 +3,24 @@
 
 def parse(inp):
 
-  return inp.read()
+  return tuple(zip(*(map(int, line.split()[1:]) for line in inp)))
 
 
 def part_1(data):
 
-  return data
+  result = 1
+
+  for time, record in data:
+    result *= sum(i * (time-i) > record for i in range(time+1))
+
+  return result
 
 
 def part_2(data):
 
-  return
+  time, record = [int(''.join(map(str, x))) for x in zip(*data)]
+
+  return sum(i * (time-i) > record for i in range(time//2)) * 2 + 1
 
 
 if __name__ == '__main__':
